@@ -21,7 +21,8 @@ class BaseIODataset(torch.utils.data.Dataset):
             return False
 
     def _load_text(self, path):
-        text = open(self.root_path + path, 'r').read()
+        with open(self.root_path + path, 'r') as f:
+            text = f.read()
         return text
 
     def _load_image(self, path):
@@ -36,7 +37,8 @@ class BaseIODataset(torch.utils.data.Dataset):
 
     def _load_json(self, path):
         try:
-            json_value = json.load(open(self.root_path + path))
+            with open(self.root_path + path) as f:
+                json_value = json.load(f)
         except Exception as e:
             _logger.info(path)
             n = path[-9:-5]

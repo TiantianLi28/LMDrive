@@ -7,43 +7,43 @@
 
 from lavis.processors.base_processor import BaseProcessor
 
-from lavis.processors.alpro_processors import (
-    AlproVideoTrainProcessor,
-    AlproVideoEvalProcessor,
-)
+# from lavis.processors.alpro_processors import (
+#     AlproVideoTrainProcessor,
+#     AlproVideoEvalProcessor,
+# )
 from lavis.processors.blip_processors import (
     BlipImageTrainProcessor,
     Blip2ImageTrainProcessor,
     BlipImageEvalProcessor,
     BlipCaptionProcessor,
 )
-from lavis.processors.blip_diffusion_processors import (
-    BlipDiffusionInputImageProcessor,
-    BlipDiffusionTargetImageProcessor,
-)
+# from lavis.processors.blip_diffusion_processors import (
+#     BlipDiffusionInputImageProcessor,
+#     BlipDiffusionTargetImageProcessor,
+# )
 from lavis.processors.gpt_processors import (
     GPTVideoFeatureProcessor,
     GPTDialogueProcessor,
 )
-from lavis.processors.clip_processors import ClipImageTrainProcessor
+# from lavis.processors.clip_processors import ClipImageTrainProcessor
 
 from lavis.common.registry import registry
 
 __all__ = [
     "BaseProcessor",
     # ALPRO
-    "AlproVideoTrainProcessor",
-    "AlproVideoEvalProcessor",
+    # "AlproVideoTrainProcessor",
+    # "AlproVideoEvalProcessor",
     # BLIP
     "BlipImageTrainProcessor",
     "Blip2ImageTrainProcessor",
     "BlipImageEvalProcessor",
     "BlipCaptionProcessor",
     # BLIP-Diffusion
-    "BlipDiffusionInputImageProcessor",
-    "BlipDiffusionTargetImageProcessor",
+    # "BlipDiffusionInputImageProcessor",
+    # "BlipDiffusionTargetImageProcessor",
     # CLIP
-    "ClipImageTrainProcessor",
+    # "ClipImageTrainProcessor",
     # GPT
     "GPTVideoFeatureProcessor",
     "GPTDialogueProcessor",

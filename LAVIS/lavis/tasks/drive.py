@@ -9,7 +9,10 @@ import logging
 import os
 
 import torch
+import torch_npu
 import torch.distributed as dist
+from torch_npu.contrib import transfer_to_npu
+
 from lavis.common.dist_utils import get_rank, get_world_size, is_main_process, is_dist_avail_and_initialized
 from lavis.common.logger import MetricLogger, SmoothedValue
 from lavis.common.registry import registry

@@ -18,10 +18,11 @@ pycocotools
 python-magic
 scikit-image
 sentencepiece
-spacy
+spacy==3.7.6
 streamlit
 torch>=1.10.0
+tensorboardX
 tqdm
-transformers>=4.28.0
+transformers==4.28.0
 webdataset
 peft

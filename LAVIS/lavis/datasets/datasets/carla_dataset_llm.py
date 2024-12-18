@@ -143,6 +143,7 @@ class CarlaVoiceDataset(BaseIODataset):
 
     def _get_scenario_paths(self, dataset_root, weathers, towns):
         scenario_infos = []
+        dataset_names = self._load_text('dataset/dataset_used.txt').split(',')
         dataset_indexs = self._load_text(os.path.join(dataset_root, 'navigation_instruction_list.txt')).split('\n')
         for line in dataset_indexs:
             if len(line) < 10: continue
@@ -151,6 +152,8 @@ class CarlaVoiceDataset(BaseIODataset):
             if towns is not None:
                 if info['town_id'] not in towns:
                     continue
+            if info['route_path'] not in dataset_names:
+                continue
             if weathers is not None:
                 if info['weather_id'] not in weathers:
                     continue

@@ -503,6 +503,7 @@ class Blip2VicunaDrive(Blip2Base):
             return predicted_waypoints, predicted_end_prob
 
         gt_waypoints = self.build_gt_waypoints(samples['local_future_waypoints'], samples['valid_frames'])
+        gt_waypoints = gt_waypoints.to(predicted_waypoints.dtype)
         waypoints_loss = self.waypoints_loss(predicted_waypoints, gt_waypoints)
 
         gt_end_flags = self.build_gt_end_flags(samples['valid_frames'])

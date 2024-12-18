@@ -4,11 +4,12 @@ Credit: Tianwei Yin
 
 from os import stat
 import logging
-from torch_scatter import scatter_mean, scatter_max
+from mx_driving.common import scatter_max,scatter_mean
 from torch import nn
 from .registry import register_model
 import numpy as np
 import torch
+import mx_driving
 
 _logger = logging.getLogger(__name__)
 
@@ -61,7 +62,7 @@ class DynamicPointNet(nn.Module):
         TODO: multiple layers
         """
         feat = self.net(points)
-        feat_max = scatter_max(feat, inverse_indices, dim=0)[0]
+        feat_max = scatter_max(feat.to(torch.float), inverse_indices.to(torch.int32))[0]
         return feat_max
 
 
@@ -89,7 +90,7 @@ class PointPillarNet(nn.Module):
 
         xyz = points[:, :3]
 
-        points_cluster = xyz - scatter_mean(xyz, inverse_indices, dim=0)[inverse_indices]
+        points_cluster = xyz - scatter_mean(xyz.npu(), inverse_indices.to(torch.int32).npu())[inverse_indices]
 
         points_xp = xyz[:, :1] - x_centers
         points_yp = xyz[:, 1:2] - y_centers
@@ -108,8 +109,21 @@ class PointPillarNet(nn.Module):
 
         return points, coords
 
+    def modified_unique(self, coords):
+        voxels_npu = mx_driving._C.point_to_voxel(coords.to(torch.int32), [], [], "XYZ")
+        cnt, uni_vox, uni_ind, argsort_ind, _ = mx_driving.unique_voxel(voxels_npu)
+        dec = mx_driving._C.voxel_to_point(uni_vox, [], [], "XYZ")
+        sorted_ind = torch.argsort(argsort_ind.to(torch.float32),dim=0).to(torch.long)
+        is_unq=torch.zeros(coords.size(0)).to(coords.device)
+
+        is_unq[uni_ind]=1
+        unq_inv_sorted=is_unq.cumsum(0)-1
+        unq_inv=torch.gather(unq_inv_sorted, 0, sorted_ind)
+        unq_inv = unq_inv.to(torch.int64)
+        return dec, unq_inv
+        
     def pillar_generation(self, points, coords):
-        unique_coords, inverse_indices = coords.unique(return_inverse=True, dim=0)
+        unique_coords, inverse_indices = self.modified_unique(coords)
         decorated_points = self.decorate(points, unique_coords, inverse_indices)
 
         return decorated_points, unique_coords, inverse_indices
@@ -139,7 +153,8 @@ class PointPillarNet(nn.Module):
             # batch_size, grid_y, grid_x 
             coords = torch.cat(coords, dim=0)
             filtered_points = torch.cat(filtered_points, dim=0)
-
+            if coords.size(0)==0:
+                return torch.zeros(20,32,240,240,dtype=torch.float16).npu()
             decorated_points, unique_coords, inverse_indices = self.pillar_generation(filtered_points, coords)
 
         features = self.point_net(decorated_points, inverse_indices)

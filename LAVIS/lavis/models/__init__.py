@@ -12,14 +12,14 @@ from lavis.common.registry import registry
 
 from lavis.models.base_model import BaseModel
 
-from lavis.models.albef_models.albef_classification import AlbefClassification
-from lavis.models.albef_models.albef_feature_extractor import AlbefFeatureExtractor
-from lavis.models.albef_models.albef_nlvr import AlbefNLVR
-from lavis.models.albef_models.albef_pretrain import AlbefPretrain
-from lavis.models.albef_models.albef_retrieval import AlbefRetrieval
-from lavis.models.albef_models.albef_vqa import AlbefVQA
-from lavis.models.alpro_models.alpro_qa import AlproQA
-from lavis.models.alpro_models.alpro_retrieval import AlproRetrieval
+# from lavis.models.albef_models.albef_classification import AlbefClassification
+# from lavis.models.albef_models.albef_feature_extractor import AlbefFeatureExtractor
+# from lavis.models.albef_models.albef_nlvr import AlbefNLVR
+# from lavis.models.albef_models.albef_pretrain import AlbefPretrain
+# from lavis.models.albef_models.albef_retrieval import AlbefRetrieval
+# from lavis.models.albef_models.albef_vqa import AlbefVQA
+# from lavis.models.alpro_models.alpro_qa import AlproQA
+# from lavis.models.alpro_models.alpro_retrieval import AlproRetrieval
 
 from lavis.models.blip_models.blip import BlipBase
 from lavis.models.blip_models.blip_caption import BlipCaption
@@ -42,12 +42,12 @@ from lavis.models.blip2_models.blip2_vicuna_instruct import Blip2VicunaInstruct
 
 from lavis.models.blip_diffusion_models.blip_diffusion import BlipDiffusion
 
-from lavis.models.pnp_vqa_models.pnp_vqa import PNPVQA
-from lavis.models.pnp_vqa_models.pnp_unifiedqav2_fid import PNPUnifiedQAv2FiD
+# from lavis.models.pnp_vqa_models.pnp_vqa import PNPVQA
+# from lavis.models.pnp_vqa_models.pnp_unifiedqav2_fid import PNPUnifiedQAv2FiD
 from lavis.models.img2prompt_models.img2prompt_vqa import Img2PromptVQA
 from lavis.models.med import XBertLMHeadDecoder
 from lavis.models.vit import VisionTransformerEncoder
-from lavis.models.clip_models.model import CLIP
+# from lavis.models.clip_models.model import CLIP
 
 from lavis.models.gpt_models.gpt_dialogue import GPTDialogue
 from lavis.models.drive_models.drive import Blip2VicunaDrive
@@ -57,14 +57,14 @@ from lavis.processors.base_processor import BaseProcessor
 
 __all__ = [
     "load_model",
-    "AlbefClassification",
-    "AlbefFeatureExtractor",
-    "AlbefNLVR",
-    "AlbefVQA",
-    "AlbefPretrain",
-    "AlbefRetrieval",
-    "AlproQA",
-    "AlproRetrieval",
+    # "AlbefClassification",
+    # "AlbefFeatureExtractor",
+    # "AlbefNLVR",
+    # "AlbefVQA",
+    # "AlbefPretrain",
+    # "AlbefRetrieval",
+    # "AlproQA",
+    # "AlproRetrieval",
     "BaseModel",
     "BlipBase",
     "BlipFeatureExtractor",
@@ -83,10 +83,10 @@ __all__ = [
     "Blip2T5",
     "Blip2T5Instruct",
     "Blip2VicunaInstruct",
-    "PNPVQA",
+    # "PNPVQA",
     "Img2PromptVQA",
-    "PNPUnifiedQAv2FiD",
-    "CLIP",
+    # "PNPUnifiedQAv2FiD",
+    # "CLIP",
     "VisionTransformerEncoder",
     "XBertLMHeadDecoder",
     "GPTDialogue",

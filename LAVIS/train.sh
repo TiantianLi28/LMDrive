@@ -1,0 +1,1 @@
+torchrun --nproc_per_node=8 ./LAVIS/train.py --cfg-path ./LAVIS/lavis/projects/lmdrive/notice_llama7b_visual_encoder_r50_seq40.yaml

@@ -11,7 +11,9 @@ import random
 
 import numpy as np
 import torch
+import torch_npu
 import torch.backends.cudnn as cudnn
+from torch_npu.contrib import tranfer_to_npu
 
 import lavis.tasks as tasks
 from lavis.common.config import Config
@@ -32,6 +34,9 @@ from lavis.runners import *
 from lavis.tasks import *
 
 
+torch.npu.config.allow_internal_format = False
+torch.npu.conv.allow_hf32 = False
+torch_npu.npu.set_compile_mode(jit_compile = False)
 def parse_args():
     parser = argparse.ArgumentParser(description="Training")
 

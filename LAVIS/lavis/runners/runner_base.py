@@ -13,6 +13,7 @@ import time
 from pathlib import Path
 
 import torch
+import torch_npu
 import torch.distributed as dist
 import webdataset as wds
 from tensorboardX import SummaryWriter
@@ -115,7 +116,7 @@ class RunnerBase:
 
             beta2 = self.config.run_cfg.get("beta2", 0.999)
 
-            self._optimizer = torch.optim.AdamW(
+            self._optimizer = torch_npu.optim.NpuFusedAdamW(
                 optim_params,
                 lr=float(self.config.run_cfg.init_lr),
                 betas=(0.9, beta2),
@@ -648,6 +649,12 @@ class RunnerBase:
     def log_stats(self, stats, split_name):
         if isinstance(stats, dict):
             log_stats = {**{f"{split_name}_{k}": v for k, v in stats.items()}}
+            if 'train_loss' in log_stats.keys():
+                print(
+                    "Train stats: train_loss:{}, train_waypoints_loss: {}".format(
+                        log_stats['train_loss'], log_stats['train_waypoints_loss']
+                    )
+                )
             with open(os.path.join(self.output_dir, "log.txt"), "a") as f:
                 f.write(json.dumps(log_stats) + "\n")
         elif isinstance(stats, list):
