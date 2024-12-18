@@ -13,7 +13,7 @@ import numpy as np
 import torch
 import torch_npu
 import torch.backends.cudnn as cudnn
-from torch_npu.contrib import tranfer_to_npu
+from torch_npu.contrib import transfer_to_npu
 
 import lavis.tasks as tasks
 from lavis.common.config import Config

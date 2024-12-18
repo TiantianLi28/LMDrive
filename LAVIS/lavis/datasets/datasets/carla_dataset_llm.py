@@ -143,7 +143,9 @@ class CarlaVoiceDataset(BaseIODataset):
 
     def _get_scenario_paths(self, dataset_root, weathers, towns):
         scenario_infos = []
-        dataset_names = self._load_text('dataset/dataset_used.txt').split(',')
+        with open('./LAVIS/dataset/dataset_used.txt', 'r') as f:
+            text = f.read()
+        dataset_names = text.split(',\n')
         dataset_indexs = self._load_text(os.path.join(dataset_root, 'navigation_instruction_list.txt')).split('\n')
         for line in dataset_indexs:
             if len(line) < 10: continue
